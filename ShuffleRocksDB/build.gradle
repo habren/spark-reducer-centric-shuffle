@@ -1,0 +1,28 @@
+archivesBaseName = 'ShuffleRocksDB'
+
+dependencies {
+
+    configurations {
+
+        all*.exclude group: 'ch.qos.logback'
+        all*.exclude module: 'slf4j-log4j12'
+//        all*.exclude module: 'log4j'
+        all*.exclude group: 'org.pentaho'
+        all*.exclude module: 'apache-curator'
+        all*.exclude group: 'org.eclipse.jetty.aggregate'
+        all*.exclude group: 'org.eclipse.jetty.orbit'
+        all*.exclude group: 'commons-logging'
+        all*.exclude module: 'apache-log4j-extras'
+    }
+
+    compile(
+            [group: 'org.apache.spark', name: 'spark-core_2.11', version: '2.3.2'],
+            [group: 'org.rocksdb', name: 'rocksdbjni', version: rocksdb],
+            [group: 'io.grpc', name: 'grpc-netty-shaded', version: grpcVersion],
+            [group: 'io.grpc', name: 'grpc-protobuf', version: grpcVersion],
+            [group: 'io.grpc', name: 'grpc-stub', version: grpcVersion],
+            [group: 'com.google.protobuf', name: 'protoc', version: protocVersion]
+    )
+    
+}
+
