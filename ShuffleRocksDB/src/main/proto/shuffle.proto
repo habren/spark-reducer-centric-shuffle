@@ -1,0 +1,38 @@
+
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.jasongj.spark.shuffle.rpc";
+option java_outer_classname = "ShuffleProtocol";
+option objc_class_prefix = "Shuffle";
+
+package ShuffleProtocol;
+
+service Shuffle {
+  rpc WriteRecord (ShuffleRecord) returns (ShuffleResult) {}
+
+  rpc WriteRecords (stream ShuffleRecord) returns (ShuffleResult) {}
+
+  rpc ReadRecords (RecordIdentifier) returns (stream ShuffleRecord) {}
+}
+
+message ShuffleRecord {
+  string app_id = 1;
+  uint32 shuffle_id = 2;
+  uint32 map_id = 3;
+  uint32 reduce_id = 4;
+  bytes key = 5;
+  bytes value = 6;
+}
+
+message ShuffleResult {
+  bool status = 1;
+  uint32 records = 2;
+  uint32 size = 3;
+}
+
+message RecordIdentifier {
+  string app_id = 1;
+  uint32 shuffle_id = 2;
+  uint32 reduce_id = 3;
+}
